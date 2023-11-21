@@ -1,6 +1,8 @@
 
 const words = [ 'Rock', 'Paper' , 'Scissors']
 
+const input = prompt('Make a choice, Rock, Paper or Scissors')
+
 
 const getComputerChoice = () => {
   const word = words[Math.floor(Math.random() * words.length) ]
@@ -13,28 +15,135 @@ const getComputerChoice = () => {
 
 function playRound(playerSelection, computerSelection) {
 
-    //const lowerCase = playerSelection ? playerSelection.toLowerCase() : "";
-    const lowerCase = playerSelection.toLowerCase();
-
+    
+    let result;
+    
       
-    if(lowerCase === 'rock' && computerSelection === 'Paper'){
+    if(playerSelection === 'rock' && computerSelection === 'Paper'){
     //   console.log('You Lose! Paper beats Rock')
-      return 'You Lose! Paper beats Rock'
-    }else if(lowerCase === 'rock' && computerSelection === 'Scissors'){
+      result = 'You Lose! Paper beats Rock';
+      return 0
+    }else if(playerSelection === 'rock' && computerSelection === 'Scissors'){
     //   console.log('You Win! Rock beats Scissors')
-        return 'You Win! Rock beats Scissors'
-    }else{
+    result = 'You Win! Rock beats Scissors';
+    return 1        
+    }else if(playerSelection === 'rock' && computerSelection === 'Rock'){
     //   console.log('Try again it is a draw')
-        return 'Try again it is a draw'
-      
-    }
+    result = 'Try again it is a draw'
+
+    }else if(playerSelection === 'paper' && computerSelection === 'Scissors'){
+        result = 'You Lose! Scissors beats Paper';
+        return 0
+    }else if(playerSelection === 'paper' && computerSelection === 'Rock'){
+        result = 'You Win! Paper beats Rock';
+        return 1
+    }else if(playerSelection === 'paper' && computerSelection === 'Paper'){
+        result = 'Try again it is a draw'
+
+
+    }else if(playerSelection === 'scissors' && computerSelection === 'Rock'){
+        result = 'You Lose! Rock beats Scissors';
+        return 0
+    }else if(playerSelection === 'scissors' && computerSelection === 'Paper'){
+        result = 'You Win! Scissors beats Paper';
+        return 1
+    }else if(playerSelection === 'scissors' && computerSelection === 'Scissors'){
+        result = 'Try again it is a draw'
+    }else{
+        result = 'Your option is not available, try again'
+    }    
+
+   
+
+    return result
+
 
     
+
+    
+
 }  
 
-const playerSelection = "rocK";
-const computerSelection = getComputerChoice();
 
-console.log(playerSelection);
 
-console.log(playRound(playerSelection,computerSelection));
+
+
+//console.log(`You chose ${playerSelection} and the Computer chose ${computerSelection},`,playRound(playerSelection,computerSelection));
+
+
+const game = () => {
+
+    let compterScore = 0
+    let playerScore = 0
+
+    for (let index = 1; index <= 5 ; index++) {
+
+        
+        const playerSelection = input.toLocaleLowerCase();
+        const computerSelection = getComputerChoice();
+
+        const round = playRound(playerSelection, computerSelection)
+        
+        const result = ()=>{
+            if(round === 1){
+                return 'you win'
+            }else if(round === 0){
+                return 'you lose'
+            }else{
+                return 'it is a draw'
+            }
+        }
+
+        console.log(`Round ${index} You chose ${playerSelection} and the computer chose ${computerSelection}, ${result()}`);
+
+        if(round === 1){
+            playerScore+= 1
+    
+        }else if(round === 0){
+            compterScore += 1 
+    
+        }else{
+            playerScore += 0
+            compterScore += 0
+        }
+        
+
+        
+    }
+
+    const gameResult = ()=>{
+
+        if(playerScore > compterScore){
+            return 'You won the game'
+
+        }else if(compterScore > playerScore){
+            return 'You lost the game'
+        }else{
+            return 'Nobody wins, it is a draw'
+        }
+
+    }
+     
+   console.log(`Computer score: ${compterScore}, Your score ${playerScore}, Result: ${gameResult()}`)
+  
+
+}
+
+game();
+
+//juagar una partida y si la gano que me sume un punto.
+//por cada partida que pierda que sume un punto al pc.
+//el que gane cinco partidas es el ganador del juego
+
+//conseguir que cuando gane un ronda que me de un punto
+
+
+
+// for (let index = 1; index <= 5; index++) {
+//     console.log(index);;
+    
+// }
+
+
+
+  
