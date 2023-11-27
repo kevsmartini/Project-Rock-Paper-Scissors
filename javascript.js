@@ -1,7 +1,7 @@
 
 const words = [ 'Rock', 'Paper' , 'Scissors']
 
-const input = prompt('Make a choice, Rock, Paper or Scissors')
+//  const input = prompt('Make a choice, Rock, Paper or Scissors')
 
 
 const getComputerChoice = () => {
@@ -12,6 +12,27 @@ const getComputerChoice = () => {
 
 
 //console.log(getComputerChoice())
+
+/*********CREATE BUTTONS FOR EACH SELECTION *******/
+const body = document.querySelector('body')
+
+const btn1 = document.createElement('button')
+btn1.textContent = 'Paper'
+
+const btn2 = document.createElement('button')
+btn2.textContent = 'Scissors'
+
+const btn3 = document.createElement('button')
+btn3.textContent = 'Rock'
+
+body.appendChild(btn1)
+body.appendChild(btn2)
+body.appendChild(btn3)
+
+console.log(body);
+
+
+
 
 function playRound(playerSelection, computerSelection) {
 
@@ -76,7 +97,7 @@ const game = () => {
     let compterScore = 0
     let playerScore = 0
 
-    for (let index = 1; index <= 5 ; index++) {
+    for (let index = 1; index <= 1 ; index++) {
 
         
         const playerSelection = input.toLocaleLowerCase();
@@ -92,7 +113,7 @@ const game = () => {
             }else{
                 return 'it is a draw'
             }
-        }
+        } 
 
         console.log(`Round ${index} You chose ${playerSelection} and the computer chose ${computerSelection}, ${result()}`);
 
@@ -109,7 +130,7 @@ const game = () => {
         
 
         
-    }
+    } /***************this cloes the for loop *************/
 
     const gameResult = ()=>{
 
