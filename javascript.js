@@ -1,115 +1,100 @@
-
-const words = [ 'Rock', 'Paper' , 'Scissors']
-
-//  const input = prompt('Make a choice, Rock, Paper or Scissors')
-
+const words = ['Rock', 'Paper', 'Scissors'];
 
 const getComputerChoice = () => {
-  const word = words[Math.floor(Math.random() * words.length) ]
-  return word
-
+  const word = words[Math.floor(Math.random() * words.length)];
+  return word.toLowerCase(); // Convert computer choice to lowercase for consistency
 }
 
+const body = document.querySelector('body');
 
-//console.log(getComputerChoice())
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
 
-/*********CREATE BUTTONS FOR EACH SELECTION *******/
-const body = document.querySelector('body')
+const scoreDisplay = document.createElement('p');
+scoreDisplay.textContent = `Player: ${playerScore} - Computer: ${computerScore}`;
+body.appendChild(scoreDisplay);
 
-const btn1 = document.createElement('button')
-btn1.textContent = 'Paper'
+const btn1 = document.createElement('button');
+btn1.textContent = 'Paper';
 
-btn1.addEventListener('click',() => {
-    console.log('Paper');
-}) 
+btn1.addEventListener('click', () => {
+  playerSelection = 'paper';
+  playRound(playerSelection, getComputerChoice());
+});
 
-const btn2 = document.createElement('button')
-btn2.textContent = 'Scissors'
+const btn2 = document.createElement('button');
+btn2.textContent = 'Scissors';
 
-btn2.addEventListener('click',() => {
-    console.log('Scissors');
-}) 
+btn2.addEventListener('click', () => {
+  playerSelection = 'scissors';
+  playRound(playerSelection, getComputerChoice());
+});
 
-const btn3 = document.createElement('button')
-btn3.textContent = 'Rock'
+const btn3 = document.createElement('button');
+btn3.textContent = 'Rock';
 
-btn3.addEventListener('click',() => {
-    console.log('Rock');
-}) 
+btn3.addEventListener('click', () => {
+  playerSelection = 'rock';
+  playRound(playerSelection, getComputerChoice());
+});
 
-
-body.appendChild(btn1)
-body.appendChild(btn2)
-body.appendChild(btn3)
-
-
-
-
+body.appendChild(btn1);
+body.appendChild(btn2);
+body.appendChild(btn3);
 
 function playRound(playerSelection, computerSelection) {
+  let result;
 
-    
-    let result;
-    
-      
-    if(playerSelection === 'rock' && computerSelection === 'Paper'){
-    //   console.log('You Lose! Paper beats Rock')
-      result = 'You Lose! Paper beats Rock';
-      return 0
-    }else if(playerSelection === 'rock' && computerSelection === 'Scissors'){
-    //   console.log('You Win! Rock beats Scissors')
+  if (playerSelection === 'rock' && computerSelection === 'paper') {
+    result = 'You Lose! Paper beats Rock';
+    computerScore++;
+  } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
     result = 'You Win! Rock beats Scissors';
-    return 1        
-    }else if(playerSelection === 'rock' && computerSelection === 'Rock'){
-    //   console.log('Try again it is a draw')
-    result = 'Try again it is a draw'
+    playerScore++;
+  } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+    result = 'You Lose! Scissors beats Paper';
+    computerScore++;
+  } else if (playerSelection === 'paper' && computerSelection === 'rock') {
+    result = 'You Win! Paper beats Rock';
+    playerScore++;
+  } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+    result = 'You Lose! Rock beats Scissors';
+    computerScore++;
+  } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+    result = 'You Win! Scissors beats Paper';
+    playerScore++;
+  } else {
+    result = 'It\'s a draw!';
+  }
 
-    }else if(playerSelection === 'paper' && computerSelection === 'Scissors'){
-        result = 'You Lose! Scissors beats Paper';
-        return 0
-    }else if(playerSelection === 'paper' && computerSelection === 'Rock'){
-        result = 'You Win! Paper beats Rock';
-        return 1
-    }else if(playerSelection === 'paper' && computerSelection === 'Paper'){
-        result = 'Try again it is a draw'
+  scoreDisplay.textContent = `Player: ${playerScore} - Computer: ${computerScore}`;
 
+  if (playerScore === 5) {
+    alert('Player wins! Game over.');
+    resetGame();
+  } else if (computerScore === 5) {
+    alert('Computer wins! Game over.');
+    resetGame();
+  }
+}
 
-    }else if(playerSelection === 'scissors' && computerSelection === 'Rock'){
-        result = 'You Lose! Rock beats Scissors';
-        return 0
-    }else if(playerSelection === 'scissors' && computerSelection === 'Paper'){
-        result = 'You Win! Scissors beats Paper';
-        return 1
-    }else if(playerSelection === 'scissors' && computerSelection === 'Scissors'){
-        result = 'Try again it is a draw'
-    }else{
-        result = 'Your option is not available, try again'
-    }    
-
-   
-
-    return result
-
-
-    
-
-    
-
-}  
-
-
-
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  scoreDisplay.textContent = `Player: ${playerScore} - Computer: ${computerScore}`;
+}
 
 
 //console.log(`You chose ${playerSelection} and the Computer chose ${computerSelection},`,playRound(playerSelection,computerSelection));
 
 
-const game = () => {
+/*const game = () => {
 
     let compterScore = 0
     let playerScore = 0
 
-    for (let index = 1; index <= 1 ; index++) {
+    
 
         
         const playerSelection = input.toLocaleLowerCase();
@@ -127,7 +112,7 @@ const game = () => {
             }
         } 
 
-        console.log(`Round ${index} You chose ${playerSelection} and the computer chose ${computerSelection}, ${result()}`);
+        console.log(` You chose ${playerSelection} and the computer chose ${computerSelection}, ${result()}`);
 
         if(round === 1){
             playerScore+= 1
@@ -142,7 +127,7 @@ const game = () => {
         
 
         
-    } /***************this cloes the for loop *************/
+ 
 
     const gameResult = ()=>{
 
@@ -162,8 +147,24 @@ const game = () => {
 
 }
 
-game();
+game();*/
 
+//juagar una partida y si la gano que me sume un punto.
+//por cada partida que pierda que sume un punto al pc.
+//el que gane cinco partidas es el ganador del juego
+
+//conseguir que cuando gane un ronda que me de un punto
+
+
+
+// for (let index = 1; index <= 5; index++) {
+//     console.log(index);;
+    
+// }
+
+
+
+  
 //juagar una partida y si la gano que me sume un punto.
 //por cada partida que pierda que sume un punto al pc.
 //el que gane cinco partidas es el ganador del juego
